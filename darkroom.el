@@ -49,19 +49,11 @@ functions that enable or disable Dark Room mode.")
 
 
 (defun fullscreen ()
-  (interactive)
-  (shell-command "wmctrl -r :ACTIVE: -b toggle,fullscreen"))
-
-;; (defun fullscreen (&optional f)
-;; ;;(defun fullscreen ()
-;;   "Chenge FullScreen. for Emacs23"
-;;   (interactive)
-;;   (set-frame-parameter f 'fullscreen
-;; 					   (if (frame-parameter f 'fullscreen) nil 'fullboth)))
-  ;; (x-send-client-message nil 0 nil "_NET_WM_STATE" 32
-  ;;                        ;; if first parameter is '2', can toggle fullscreen status
-  ;;                        '(2 "_NET_WM_STATE_FULLSCREEN" 0)))
-
+  "Chenge FullScreen. for X Window"
+  (x-send-client-message nil 0 nil "_NET_WM_STATE" 32
+						 ;; if first parameter is '2', can toggle fullscreen status
+						 '(2 "_NET_WM_STATE_FULLSCREEN" 0))
+  (redisplay))
 
 (defun darkroom-mode ()
   "simple writing environment."
@@ -73,6 +65,8 @@ functions that enable or disable Dark Room mode.")
   (setq dark-mode-on t)
   (setq darkroom-default-background-color
 		(cdr (assoc 'background-color default-frame-alist)))
+  (setq final-frame-params 
+		(cons (frame-width) (frame-height)))
   (fset 'color-theme-snapshot (color-theme-make-snapshot))
   (sleep-for 0.05)
   (color-theme-simple-1)
@@ -91,6 +85,7 @@ functions that enable or disable Dark Room mode.")
   (setq dark-mode-on nil)
   (add-to-list 'default-frame-alist
   			   '(background-color . darkroom-default-background-color))
+  (color-theme-reset-faces)
   (color-theme-snapshot)
   (scroll-bar-mode)
     (if (equal (intern-soft "elscreen-version") nil) nil
@@ -98,7 +93,8 @@ functions that enable or disable Dark Room mode.")
   (display-time-mode 0)
   (menu-bar-mode 1)
   (sleep-for 0.05)
-  (fullscreen ))
+  (fullscreen)
+  (set-frame-height (selected-frame) (cdr final-frame-params)))
 	
 (defun window-count ()
   (length (window-list (selected-frame) 1)))
