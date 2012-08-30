@@ -28,6 +28,8 @@
 
 ;;; (require 'darkroom)
 ;;; M-x darkroom
+;;; or
+;;; (global-set-key [f11] 'darkroom-mode)
 
 ;;; Code:
 (require 'color-theme)
