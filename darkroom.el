@@ -70,7 +70,6 @@ functions that enable or disable Dark Room mode.")
   (fset 'color-theme-snapshot (color-theme-make-snapshot))
   (sleep-for 0.05)
   (color-theme-simple-1)
-  (fullscreen )
   (set-cursor-color "yellow") ;; cursor color
   (tool-bar-mode 0)
   (menu-bar-mode 0)
@@ -79,7 +78,8 @@ functions that enable or disable Dark Room mode.")
   (set-face-foreground 'mode-line "gray25")
   (set-face-background 'mode-line "gray1")
   (if (equal (intern-soft "elscreen-version") nil) nil
-	(elscreen-toggle-display-tab)))
+	(elscreen-toggle-display-tab))
+  (fullscreen ))
 
 (defun darkroom-mode-disable ()
   (setq dark-mode-on nil)
