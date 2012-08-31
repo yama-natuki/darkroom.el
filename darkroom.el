@@ -51,10 +51,15 @@ functions that enable or disable Dark Room mode.")
 
 
 (defun fullscreen ()
-  "Chenge FullScreen. for X Window"
-  (x-send-client-message nil 0 nil "_NET_WM_STATE" 32
-						 ;; if first parameter is '2', can toggle fullscreen status
-						 '(2 "_NET_WM_STATE_FULLSCREEN" 0))
+  "toggle FullScreen."
+  (cond ((eq (window-system) 'x)
+		 (x-send-client-message nil 0 nil "_NET_WM_STATE" 32
+								;; if first parameter is '2', can toggle fullscreen status
+								'(2 "_NET_WM_STATE_FULLSCREEN" 0)))
+		((eq (window-system) 'w32) ;; Windows.
+		 (message "Windows"))
+		((eq (window-system) 'ns) ;; Mac OSX.
+		 (message "OSX")))
   (redisplay))
 
 (defun darkroom-mode ()
