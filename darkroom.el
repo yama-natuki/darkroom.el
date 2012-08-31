@@ -42,7 +42,7 @@
 (defvar darkroom-right-margin 15
   "right margin")
 
-(defvar dark-mode-on nil
+(defvar dark-mode-p nil
   "Non-nil if DarkRoom mode is enabled.
 Don't change this variable directly, you must change it by one of the
 functions that enable or disable Dark Room mode.")
@@ -58,7 +58,7 @@ functions that enable or disable Dark Room mode.")
 								'(2 "_NET_WM_STATE_FULLSCREEN" 0)))
 		((eq (window-system) 'w32) ;; Windows.
 		 ;; Not TEST. non real fullscreen.
-		 (if dark-mode-on
+		 (if dark-mode-p
 			 (w32-send-sys-command 61488) ;; WM_SYSCOMMAND maximaze #xf030
 		   (w32-send-sys-command 61728))) ;; WM_SYSCOMMAND restore #xf120
 		((eq (window-system) 'ns) ;; Mac OSX.
@@ -68,11 +68,11 @@ functions that enable or disable Dark Room mode.")
 (defun darkroom-mode ()
   "simple writing environment."
   (interactive)
-  (if (equal dark-mode-on t) (darkroom-mode-disable)
+  (if (equal dark-mode-p t) (darkroom-mode-disable)
 	(darkroom-mode-enable)))
 
 (defun darkroom-mode-enable ()
-  (setq dark-mode-on t)
+  (setq dark-mode-p t)
   (setq darkroom-default-background-color
 		(cdr (assoc 'background-color default-frame-alist)))
   (setq final-frame-params 
@@ -92,7 +92,7 @@ functions that enable or disable Dark Room mode.")
   (fullscreen ))
 
 (defun darkroom-mode-disable ()
-  (setq dark-mode-on nil)
+  (setq dark-mode-p nil)
   (add-to-list 'default-frame-alist
   			   '(background-color . darkroom-default-background-color))
   (color-theme-reset-faces)
@@ -115,7 +115,7 @@ functions that enable or disable Dark Room mode.")
 					  darkroom-right-margin))
 
 (defun dark-window-update ()
-  (if (equal dark-mode-on t)
+  (if (equal dark-mode-p t)
 	  (if (> (window-count) 1)
 		  (progn
 			(set-window-margins (selected-window) 0 0)
