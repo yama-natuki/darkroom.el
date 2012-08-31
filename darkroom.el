@@ -57,7 +57,10 @@ functions that enable or disable Dark Room mode.")
 								;; if first parameter is '2', can toggle fullscreen status
 								'(2 "_NET_WM_STATE_FULLSCREEN" 0)))
 		((eq (window-system) 'w32) ;; Windows.
-		 (message "Windows"))
+		 ;; Not TEST. non real fullscreen.
+		 (if dark-mode-on
+			 (w32-send-sys-command 61488) ;; WM_SYSCOMMAND maximaze #xf030
+		   (w32-send-sys-command 61728))) ;; WM_SYSCOMMAND restore #xf120
 		((eq (window-system) 'ns) ;; Mac OSX.
 		 (message "OSX")))
   (redisplay))
