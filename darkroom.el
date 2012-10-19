@@ -103,6 +103,7 @@ functions that enable or disable Dark Room mode.")
   (display-time-mode 0)
   (menu-bar-mode 1)
   (sleep-for 0.05)
+  (set-cursor-color "yellow")
   (fullscreen)
   (set-frame-height (selected-frame) (cdr final-frame-params)))
 	
