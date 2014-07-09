@@ -84,7 +84,7 @@ functions that enable or disable Dark Room mode.")
   (tool-bar-mode 0)
   (menu-bar-mode 0)
   (display-time-mode 1)
-  (scroll-bar-mode)
+  (set-scroll-bar-mode nil)
   (set-face-foreground 'mode-line "gray25")
   (set-face-background 'mode-line "gray1")
   (if (equal (intern-soft "elscreen-version") nil) nil
