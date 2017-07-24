@@ -79,7 +79,7 @@ functions that enable or disable Dark Room mode.")
 		(cons (frame-width) (frame-height)))
   (fset 'color-theme-snapshot (color-theme-make-snapshot))
   (sleep-for 0.05)
-  (color-theme-simple-1)
+  (color-theme-simple)
   (set-cursor-color "yellow") ;; cursor color
   (tool-bar-mode 0)
   (menu-bar-mode 0)
@@ -128,6 +128,23 @@ functions that enable or disable Dark Room mode.")
 
 (add-hook 'window-configuration-change-hook 'dark-window-update)
 
+(defun color-theme-simple ()
+  "Black background.
+Doesn't mess with most faces, but does turn on dark background mode."
+  (interactive)
+  (color-theme-install
+   '(color-theme-simple
+     ((foreground-color . "white")
+      (background-color . "black")
+      (cursor-color	. "indian red")
+      (background-mode	. dark))
+     (default ((t (nil))))
+     (modeline ((t (:foreground "black" :background "white"))))
+     (modeline-buffer-id ((t (:foreground "black" :background "white"))))
+     (modeline-mousable ((t (:foreground "black" :background "white"))))
+     (modeline-mousable-minor-mode ((t (:foreground "black" :background "white"))))
+     (underline ((t (:underline t))))
+     (region ((t (:background "grey")))))))
 
 (provide 'darkroom)
 ;;; darkroom.el ends here
