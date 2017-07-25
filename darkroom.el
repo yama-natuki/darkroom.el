@@ -53,9 +53,11 @@ functions that enable or disable Dark Room mode.")
 (defun fullscreen ()
   "toggle FullScreen."
   (cond ((eq (window-system) 'x)
-		 (x-send-client-message nil 0 nil "_NET_WM_STATE" 32
-								;; if first parameter is '2', can toggle fullscreen status
-								'(2 "_NET_WM_STATE_FULLSCREEN" 0)))
+         (if (and (>= emacs-major-version 24) (>= emacs-minor-version 4))
+             (toggle-frame-fullscreen)
+           (x-send-client-message nil 0 nil "_NET_WM_STATE" 32
+                                  ;; if first parameter is '2', can toggle fullscreen status
+                                  '(2 "_NET_WM_STATE_FULLSCREEN" 0))))
 		((eq (window-system) 'w32) ;; Windows.
 		 ;; Not TEST. non real fullscreen.
 		 (if dark-mode-p
