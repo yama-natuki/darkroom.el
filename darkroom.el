@@ -80,17 +80,11 @@ functions that enable or disable Dark Room mode.")
   (setq final-frame-params 
 		(cons (frame-width) (frame-height)))
   (fset 'color-theme-snapshot (color-theme-make-snapshot))
-;  (sleep-for 0.05)
-  (color-theme-simple)
-  (set-cursor-color "yellow") ;; cursor color
+  (color-theme-darkroom)
   (tool-bar-mode 0)
   (menu-bar-mode 0)
   (display-time-mode 1)
   (set-scroll-bar-mode nil)
-  (set-face-foreground 'mode-line "gray25")
-  (set-face-background 'mode-line "gray1")
-  (set-face-foreground 'mode-line-buffer-id "gray25")
-  (set-face-background 'mode-line-buffer-id "gray1")
   (if (equal (intern-soft "elscreen-version") nil) nil
 	(elscreen-toggle-display-tab))
   (fullscreen ))
@@ -106,8 +100,6 @@ functions that enable or disable Dark Room mode.")
 	(elscreen-toggle-display-tab))
   (display-time-mode 0)
   (menu-bar-mode 1)
-;  (sleep-for 0.05)
-  (set-cursor-color "yellow")
   (fullscreen)
   (set-frame-height (selected-frame) (cdr final-frame-params)))
 	
@@ -130,21 +122,21 @@ functions that enable or disable Dark Room mode.")
 
 (add-hook 'window-configuration-change-hook 'dark-window-update)
 
-(defun color-theme-simple ()
+(defun color-theme-darkroom ()
   "Black background.
 Doesn't mess with most faces, but does turn on dark background mode."
   (interactive)
   (color-theme-install
-   '(color-theme-simple
+   '(color-theme-darkroom
      ((foreground-color . "white")
       (background-color . "black")
-      (cursor-color	. "indian red")
+      (cursor-color	. "yellow")
       (background-mode	. dark))
      (default ((t (nil))))
-     (mode-line ((t (:foreground "black" :background "white"))))
-     (mode-line-buffer-id ((t (:foreground "black" :background "white"))))
-     (mode-line-mousable ((t (:foreground "black" :background "white"))))
-     (mode-line-mousable-minor-mode ((t (:foreground "black" :background "white"))))
+     (mode-line ((t (:foreground "gray25" :background "gray1"))))
+     (mode-line-buffer-id ((t (:foreground "gray25" :background "gray1"))))
+     (mode-line-mousable ((t (:foreground "gray25" :background "gray1"))))
+     (mode-line-mousable-minor-mode ((t (:foreground "gray25" :background "gray1"))))
      (underline ((t (:underline t))))
      (region ((t (:background "grey")))))))
 
