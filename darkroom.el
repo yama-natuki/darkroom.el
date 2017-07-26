@@ -80,6 +80,14 @@ functions that enable or disable Dark Room mode.")
   (setq final-frame-params 
 		(cons (frame-width) (frame-height)))
   (fset 'color-theme-snapshot (color-theme-make-snapshot))
+  (if tool-bar-mode
+      (setq toolbar-mode-p 1)
+    (setq toolbar-mode-p 0))
+  (setq menubar-mode-p menu-bar-mode)
+  (if display-time-mode
+      (setq time-mode-p 1)
+    (setq time-mode-p 0))
+  (setq scroll-bar-mode-p scroll-bar-mode)
   (color-theme-darkroom)
   (tool-bar-mode 0)
   (menu-bar-mode 0)
@@ -95,11 +103,12 @@ functions that enable or disable Dark Room mode.")
   			   '(background-color . darkroom-default-background-color))
   (color-theme-reset-faces)
   (color-theme-snapshot)
-  (scroll-bar-mode)
-    (if (equal (intern-soft "elscreen-version") nil) nil
-	(elscreen-toggle-display-tab))
-  (display-time-mode 0)
-  (menu-bar-mode 1)
+  (set-scroll-bar-mode scroll-bar-mode-p)
+  (if (equal (intern-soft "elscreen-version") nil) nil
+    (elscreen-toggle-display-tab))
+  (display-time-mode time-mode-p)
+  (menu-bar-mode menubar-mode-p)
+  (tool-bar-mode toolbar-mode-p)
   (fullscreen)
   (set-frame-height (selected-frame) (cdr final-frame-params)))
 	
