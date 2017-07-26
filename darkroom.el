@@ -141,7 +141,8 @@ Doesn't mess with most faces, but does turn on dark background mode."
       (background-color . "black")
       (cursor-color	. "yellow")
       (background-mode	. dark))
-     (default ((t (nil))))
+     (default ((t (nil))));Fringe
+     (fringe ((t (:background "gray10"))))
      (mode-line ((t (:foreground "gray25" :background "gray1"))))
      (mode-line-buffer-id ((t (:foreground "gray25" :background "gray1"))))
      (mode-line-mousable ((t (:foreground "gray25" :background "gray1"))))
